@@ -7,8 +7,6 @@ public class PowerRate implements PowerRateService {
     private final HashMap<Integer, Double> rates = new HashMap<>();
     private final CurrentPowerRateService currentPowerRateService  = new CurrentPowerRateService();
 
-
-
     @Override
     public double getPowerRate(int powerClass) {
         if (rates.containsKey(powerClass)) {

@@ -30,4 +30,24 @@ public class Driver {
     public double getRegionRate() {
         return regionRate;
     }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public void setLicenseNumber(String licenseNumber) {
+        this.licenseNumber = licenseNumber;
+    }
+
+    public void setRegionRate(double regionRate) {
+        this.regionRate = regionRate;
+    }
 }

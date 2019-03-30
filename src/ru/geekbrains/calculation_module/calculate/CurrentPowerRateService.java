@@ -1,4 +1,4 @@
-package ru.geekbrains.calculation_module;
+package ru.geekbrains.calculation_module.calculate;
 
 public class CurrentPowerRateService implements PowerRateService {
     @Override

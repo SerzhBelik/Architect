@@ -1,4 +1,4 @@
-package ru.geekbrains.calculation_module;
+package ru.geekbrains.calculation_module.calculate;
 
 import com.company.Car;
 import com.company.drivers.Driver;

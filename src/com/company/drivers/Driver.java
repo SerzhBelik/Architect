@@ -3,13 +3,12 @@ package com.company.drivers;
 import java.util.List;
 
 public class Driver {
+    private int id;
     private String lastName;
     private String firstName;
     private String region;
     private String licenseNumber;
     private double regionRate;
-//    private List<Driver> drivers;
-
 
     public String getLastName() {
         return lastName;
@@ -49,5 +48,13 @@ public class Driver {
 
     public void setRegionRate(double regionRate) {
         this.regionRate = regionRate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

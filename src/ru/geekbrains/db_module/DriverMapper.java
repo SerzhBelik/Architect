@@ -1,12 +1,8 @@
 package ru.geekbrains.db_module;
 
-
 import com.company.drivers.Driver;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DriverMapper {
     private final Connection connection;
@@ -15,33 +11,44 @@ public class DriverMapper {
         this.connection  = connection;
     }
 
-    public Driver findById(int idPerson) throws SQLException, RecordNotFoundException{
+    public Driver findByLicenseNumber(String licenseNumber) throws SQLException{
         PreparedStatement statement = connection.prepareStatement(
-                "SELECT IDPERSON, FIRSTNAME, LASTNAME FROM PERSON WHERE IDPERSON = ?");
-        statement.setInt(1,idPerson);
+                "SELECT * FROM DRIVERS WHERE LICENSENUMBER = ?");
+        statement.setString(1,licenseNumber);
         try (ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 Driver driver = new Driver();
-                person.setIdPerson(resultSet.getInt(1));
-                person.setFirstName(resultSet.getString(2));
-                person.setLastName(resultSet.getString(3));
-                return person;
+                driver.setId(resultSet.getInt(1));
+                driver.setFirstName(resultSet.getString(2));
+                driver.setLastName(resultSet.getString(3));
+                driver.setRegion(resultSet.getString(4));
+                driver.setLicenseNumber(resultSet.getString(5));
+                return driver;
             }
         }
 
-        throw new RecordNotFoundException(idPerson);
+       return null;
     }
 
-    public void insert(Person person) {
-        // схожее использование методов чистого JDBC, тело опущено
+    public boolean insert(Driver driver) {
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO DRIVERS VALUES (?, ?, ?, ?, ?);");
+            ps.setInt(1, driver.getId());
+            ps.setString(2, driver.getFirstName());
+            ps.setString(3, driver.getLastName());
+            ps.setString(4, driver.getRegion());
+            ps.setString(5, driver.getLicenseNumber());
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
-    public void update(Person person) {
-        // схожее использование методов чистого JDBC, тело опущено
+    public void update(Driver person) {
+        //FIXME
     }
 
-    public void delete(Person person) {
-        // схожее использование методов чистого JDBC, тело опущено
-    }
 }
 

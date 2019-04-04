@@ -1,15 +1,13 @@
 package ru.geekbrains.db_module;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+
+import com.company.drivers.Driver;
 import org.sqlite.JDBC;
 
 
 public class DBConnector {
     Connection connection = null;
-    ResultSet resultSet = null;
     Statement statement = null;
     String prefix = JDBC.PREFIX;
 
@@ -22,7 +20,6 @@ public class DBConnector {
         }
         finally {
             try {
-//                resultSet.close();
                 statement.close();
                 connection.close();
             } catch (Exception e) {
@@ -30,6 +27,24 @@ public class DBConnector {
             }
         }
     }
+
+    public Driver getDriver(String licenseNumber){
+        DriverMapper driverMapper = new DriverMapper(connection);
+        try {
+            Driver driver = driverMapper.findByLicenseNumber(licenseNumber);
+            return  driver;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  null;
+    }
+
+    public boolean setDriver(Driver driver){
+        DriverMapper driverMapper = new DriverMapper(connection);
+        if (driverMapper.insert(driver)) return true;
+        else return false;
+    }
+
 
 
 
